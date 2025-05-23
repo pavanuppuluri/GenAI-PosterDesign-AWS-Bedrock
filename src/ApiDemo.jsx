@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import React, { useState } from "react";
+import "./App.css";
 
-export default function ApiDemo() {
+function ApiDemo() {
   const [inputValue, setInputValue] = useState("");
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,39 +27,29 @@ export default function ApiDemo() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <Card className="w-full max-w-md shadow-2xl rounded-2xl p-6 bg-white">
-        <CardContent>
-          <h2 className="text-xl font-bold mb-4 text-center">API Demo</h2>
-
-          <Label htmlFor="input" className="block mb-1">
-            Enter Input
-          </Label>
-          <Input
-            id="input"
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="mb-4"
-            placeholder="Type something..."
-          />
-
-          <Button
-            onClick={callApi}
-            disabled={loading || !inputValue.trim()}
-            className="w-full mb-4"
-          >
-            {loading ? "Calling API..." : "Send Request"}
-          </Button>
-
-          {response && (
-            <div className="bg-gray-100 p-4 rounded-md border text-sm whitespace-pre-wrap">
-              <strong>Response:</strong>
-              <pre>{JSON.stringify(response, null, 2)}</pre>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+    <div className="container">
+      <div className="card">
+        <h2>API Demo</h2>
+        <label htmlFor="input">Enter Input</label>
+        <input
+          id="input"
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Type something..."
+        />
+        <button onClick={callApi} disabled={loading || !inputValue.trim()}>
+          {loading ? "Calling API..." : "Send Request"}
+        </button>
+        {response && (
+          <div className="response-box">
+            <strong>Response:</strong>
+            <pre>{JSON.stringify(response, null, 2)}</pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
+export default ApiDemo;
